@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -120,7 +121,13 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
         Bitmap imageViewAfterDrawingCache = getImageView().getDrawingCache();
 
         if (imageViewAfterDrawingCache != null) {
-            sinkBean.setImageAfter(customService.encodeBase64(imageViewAfterDrawingCache));
+            Object tag = getImageView().getTag();
+            if(tag != null) { // photo has bean changed if modeEdition otherwise use took or chose photo
+                sinkBean.setImageAfterPath(String.valueOf(tag));
+                sinkBean.setImageAfter(customService.encodeBase64(imageViewAfterDrawingCache));
+            } else if (tag == null && isModeEdition() && StringUtils.isEmpty(sinkBean.getImageAfterPath())){
+                Log.e("Creation", "There is no photo");
+            }
         }
         getImageView().setDrawingCacheEnabled(true);
         setDefaultClient(sinkBean, this, getString(R.string.client_name_preference));
@@ -316,7 +323,7 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
     }
 
     protected void getAddressFromLocation() {
-        addressBean = AddressUtils.initAddressFromLocation((EditText) findViewById(R.id.addressTxt), (EditText) findViewById(R.id.neighborhoodTxt), getBaseContext(), lastLocation);
+        addressBean = addressBean != null ? addressBean : AddressUtils.initAddressFromLocation((EditText) findViewById(R.id.addressTxt), (EditText) findViewById(R.id.neighborhoodTxt), getBaseContext(), lastLocation);
     }
 
     private void addSendButtonListener() {

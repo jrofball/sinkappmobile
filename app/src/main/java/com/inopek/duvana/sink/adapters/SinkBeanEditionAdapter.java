@@ -92,11 +92,11 @@ public class SinkBeanEditionAdapter extends AbstractSinkBeanAdapter {
         String reference = sinkBean.getReference();
         Intent intent = null;
         if(reference != null) {
-            if (StringUtils.isNoneEmpty(sinkBean.getImageBefore())/*ProfileEnum.BEGIN.getLabel().equals(profilePreference) && sinkBean.getImageBefore() != null*/) {
+            if (StringUtils.isNotEmpty(sinkBean.getImageBefore())) {
                 imageTmpPath = saveImage(sinkBean.getImageBefore(), reference);
                 sinkBean.setImageBefore(imageTmpPath);
             }
-            if (StringUtils.isNoneEmpty(sinkBean.getImageAfter()) /*ProfileEnum.END.getLabel().equals(profilePreference) && sinkBean.getImageAfter() != null*/) {
+            if (StringUtils.isNotEmpty(sinkBean.getImageAfter())) {
                 imageTmpPath = saveImage(sinkBean.getImageAfter(), reference);
                 sinkBean.setImageAfter(imageTmpPath);
             }
@@ -121,11 +121,11 @@ public class SinkBeanEditionAdapter extends AbstractSinkBeanAdapter {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            path += fileName + ".png";
-            if(base64.contains(path)) {
+            if(StringUtils.startsWith(base64, path)) {
                 // the path is already set, check file exists
                 return  getFilePath(base64);
             }
+            path += fileName + ".png";
             // decode and create file
             byte[] bytes = Base64.decode(base64, DEFAULT);
             File imageFile = new File(path);

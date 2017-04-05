@@ -88,6 +88,7 @@ public class SinkBasicEditionActivity extends AbstractBasicCreationActivity {
                         @Override
                         public void run() {
                             // This code will always run on the UI thread, therefore is safe to modify UI elements.
+                            sinkBean.setImageBeforePath(sinkBean.getImageBefore());
                             ImageUtils.createBipMapFromFile(sinkBean.getImageBefore(), getImageView());
                         }
                     });

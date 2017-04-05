@@ -38,6 +38,7 @@ public class HttpRequestSendBeanTask extends AbstractHttpRequestTask<Long> {
         mapVariables.put("updateAll", Boolean.toString(updateAll));
         mapVariables.put("stepBefore", ProfileEnum.BEGIN.getLabel().equals(profile) ? String.valueOf(true) : String.valueOf(false));
         url += "/{checkReferenceExits}/{updateAll}/{stepBefore}";
+        encodePhotoFile(sink);
         return restTemplate.postForObject(url, sink, Long.class, mapVariables);
     }
 

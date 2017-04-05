@@ -359,6 +359,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:layout_centerHorizontal="true" />
 
             <Button

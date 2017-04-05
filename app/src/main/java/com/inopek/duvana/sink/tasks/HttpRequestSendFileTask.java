@@ -36,6 +36,9 @@ public class HttpRequestSendFileTask extends AbstractHttpRequestTask<HashMap<Str
         String profile = sharedPref.getString(context.getString(R.string.profile_name_preference), context.getString(R.string.profile_name_preference));
         url += "/{profile}";
         mapVariables.put("profile", profile);
+        for(SinkBean sinkBean : sinks) {
+            encodePhotoFile(sinkBean);
+        }
         return restTemplate.postForObject(url, sinks, HashMap.class, mapVariables);
     }
 

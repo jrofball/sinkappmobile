@@ -82,11 +82,6 @@ public class SinkEditionActivity extends AbstractInputActivity {
     }
 
     @Override
-    protected void getAddressFromLocation() {
-        addressBean = sinkBean.getAddress() != null ? sinkBean.getAddress() : AddressUtils.initAddressFromLocation((EditText) findViewById(R.id.addressTxt), (EditText) findViewById(R.id.neighborhoodTxt), getBaseContext(), lastLocation);
-    }
-
-    @Override
     protected SinkBean getSinkBeanToSave() {
         return sinkBean;
     }
@@ -154,6 +149,7 @@ public class SinkEditionActivity extends AbstractInputActivity {
                         @Override
                         public void run() {
                             // This code will always run on the UI thread, therefore is safe to modify UI elements.
+                            sinkBean.setImageAfterPath(sinkBean.getImageBefore());
                             ImageUtils.createBipMapFromFile(sinkBean.getImageAfter(), getImageView());
                         }
                     });

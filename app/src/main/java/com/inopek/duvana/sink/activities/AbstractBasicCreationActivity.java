@@ -1,6 +1,7 @@
 package com.inopek.duvana.sink.activities;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,7 +42,13 @@ public abstract class AbstractBasicCreationActivity extends AbstractCreationActi
 
         Bitmap imageViewBeforeDrawingCache = getImageView().getDrawingCache();
         if (imageViewBeforeDrawingCache != null) {
-            sinkBean.setImageBefore(customService.encodeBase64(imageViewBeforeDrawingCache));
+            Object tag = getImageView().getTag();
+            if(tag != null) {
+                sinkBean.setImageBeforePath(String.valueOf(tag));
+                sinkBean.setImageBefore(customService.encodeBase64(imageViewBeforeDrawingCache));
+            } else if (tag == null && isModeEdition() && StringUtils.isEmpty(sinkBean.getImageBeforePath())){
+                Log.e("BasicCreation", "There is no photo");
+            }
         }
 
         sinkBean.setReference(referenceText.getText().toString());

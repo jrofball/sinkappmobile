@@ -1,6 +1,8 @@
 package com.inopek.duvana.sink.beans;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class SinkBean {
@@ -15,6 +17,10 @@ public class SinkBean {
     private String reference;
     private String imageBefore;
     private String imageAfter;
+    @JsonIgnore
+    private String imageBeforePath;
+    @JsonIgnore
+    private String imageAfterPath;
     private String observations;
     private String fileName;
 
@@ -167,6 +173,22 @@ public class SinkBean {
 
     public void setUserUpdate(UserBean userUpdate) {
         this.userUpdate = userUpdate;
+    }
+
+    public String getImageBeforePath() {
+        return imageBeforePath;
+    }
+
+    public void setImageBeforePath(String imageBeforePath) {
+        this.imageBeforePath = imageBeforePath;
+    }
+
+    public String getImageAfterPath() {
+        return imageAfterPath;
+    }
+
+    public void setImageAfterPath(String imageAfterPath) {
+        this.imageAfterPath = imageAfterPath;
     }
 
     @Override

@@ -98,7 +98,7 @@ public abstract class AbstractCreationActivity extends AppCompatActivity {
 
     private void checkExistsInBd(final SinkBean sinkBean, final boolean createFile) {
 
-        if(ActivityUtils.isNetworkAvailable(this)) { // TODO check mode edition
+        if(ActivityUtils.isNetworkAvailable(this)) {
             new HttpRequestSearchPairReferenceClientTask(sinkBean, getBaseContext()) {
                 ProgressDialog dialog;
 
@@ -157,18 +157,22 @@ public abstract class AbstractCreationActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         new Thread(new Runnable() {
             public void run() {
-                final Bitmap bitmap = ImageUtils.processBitMap(data);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // This code will always run on the UI thread, therefore is safe to modify UI elements.
-                        if (bitmap != null) {
-                            getImageView().setImageBitmap(bitmap);
-                            getImageView().setDrawingCacheEnabled(true);
-                            imageBitmap = bitmap;
+                if (data != null && data.getExtras() != null && data.getStringExtra(SinkConstants.INTENT_EXTRA_FILE_NAME) != null) {
+                    final Bitmap bitmap = ImageUtils.processBitMap(data);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // This code will always run on the UI thread, therefore is safe to modify UI elements.
+                            if (bitmap != null) {
+                                // set tag with image's path. It's used to upload the original image
+                                getImageView().setTag(data.getStringExtra(SinkConstants.INTENT_EXTRA_FILE_NAME));
+                                getImageView().setImageBitmap(bitmap);
+                                getImageView().setDrawingCacheEnabled(true);
+                                imageBitmap = bitmap;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
         }).start();
