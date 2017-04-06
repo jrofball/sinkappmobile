@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             identifier = Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         }
         editor.putString(getString(R.string.imei_name_preference), identifier);
-        editor.commit();
+        editor.apply();
         checkProfileAndCreateActivities();
 
     }

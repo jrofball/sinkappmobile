@@ -122,7 +122,7 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
 
         if (imageViewAfterDrawingCache != null) {
             Object tag = getImageView().getTag();
-            if(tag != null) { // photo has bean changed if modeEdition otherwise use took or chose photo
+            if(tag != null) { // photo has been changed if modeEdition, otherwise use taken or chosen photo
                 sinkBean.setImageAfterPath(String.valueOf(tag));
                 sinkBean.setImageAfter(customService.encodeBase64(imageViewAfterDrawingCache));
             } else if (tag == null && isModeEdition() && StringUtils.isEmpty(sinkBean.getImageAfterPath())){
@@ -132,6 +132,7 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
         getImageView().setDrawingCacheEnabled(true);
         setDefaultClient(sinkBean, this, getString(R.string.client_name_preference));
 
+        // if image before exists : save encoded base 64. This happens in mode edition
         if(StringUtils.isNotEmpty(sinkBean.getImageBefore())) {
             Bitmap bipMapFromFile = ImageUtils.getBipMapFromFile(sinkBean.getImageBefore());
             if(bipMapFromFile != null) {

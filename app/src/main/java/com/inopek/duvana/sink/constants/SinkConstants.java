@@ -10,7 +10,8 @@ public final class SinkConstants {
     public static final String DATE_FORMAT_YYYT_MM_DD_HH_mm_ss_SSS = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String JSON_EXTENSION = ".json";
     public static final String FILE_NAME_SEPARATOR = "-";
-    public static final String INTENT_EXTRA_FILE_NAME = "filaName";
+    public static final String INTENT_EXTRA_FULL_SIZE_FILE_NAME = "thumbnailFileName";
+    public static final String INTENT_EXTRA_THUMBNAIL_FILE_NAME = "fullSizeFileName";
     public static final String ENCODING_DEFAULT_NAME = "utf-8";
     public static final int PHOTO_REQUEST_CODE = 100;
     public static final int EDITION_ACTIVITY_REQUEST_CODE = 200;

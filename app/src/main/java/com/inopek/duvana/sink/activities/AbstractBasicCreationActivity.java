@@ -56,6 +56,7 @@ public abstract class AbstractBasicCreationActivity extends AbstractCreationActi
 
         setClient(sinkBean);
 
+        // if image after exists : save encoded base 64. This happens in mode edition
         if(StringUtils.isNotEmpty(sinkBean.getImageAfter())) {
             Bitmap bipMapFromFile = ImageUtils.getBipMapFromFile(sinkBean.getImageAfter());
             if(bipMapFromFile != null) {

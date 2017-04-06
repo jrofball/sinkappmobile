@@ -40,4 +40,17 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="spinnerItemStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment" targetApi="jelly_bean_mr1">center</item>
+    </style>
+
+    <!-- Spinner style drop down style-->
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment" targetApi="jelly_bean_mr1">center</item>
+    </style>
+
 </resources>

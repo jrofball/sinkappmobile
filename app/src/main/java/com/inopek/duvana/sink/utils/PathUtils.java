@@ -3,14 +3,10 @@ package com.inopek.duvana.sink.utils;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 public final class PathUtils {
 
@@ -39,19 +35,6 @@ public final class PathUtils {
         }
         return filePath == null ? uri.getPath() : filePath;
     }
-
-    public static Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        try {
-            bytes.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Uri.parse(path);
-    }
-
 
     @TargetApi(19)
     private static String generateFromKitkat(Uri uri, Context context) {

@@ -43,8 +43,6 @@ import static com.inopek.duvana.sink.constants.SinkConstants.DATE_FORMAT_DD_MM_Y
 
 public class SinkSearchActivity extends AppCompatActivity {
 
-    private SinkBeanEditionAdapter adapter;
-
     @Inject
     CustomService customService;
 
@@ -117,7 +115,7 @@ public class SinkSearchActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int arg1) {
                         searchType.setText(types[arg1]);
                         ListView lv = ((AlertDialog) dialog).getListView();
-                        lv.setTag(new Integer(arg1));
+                        lv.setTag(Integer.valueOf(arg1));
                     }
                 };
             }
@@ -234,7 +232,7 @@ public class SinkSearchActivity extends AppCompatActivity {
     private void populate(List<SinkBean> sinks) {
         ArrayList<SinkBean> results = new ArrayList<>();
         results.addAll(sinks);
-        adapter = new SinkBeanEditionAdapter(getBaseContext(), results, R.layout.item_edit_sink, this);
+        SinkBeanEditionAdapter adapter = new SinkBeanEditionAdapter(getBaseContext(), results, R.layout.item_edit_sink, this);
         ListView listView = (ListView) findViewById(R.id.sinksListView);
         listView.setAdapter(adapter);
         if(CollectionUtils.isNotEmpty(results)) {

@@ -3,7 +3,6 @@ package com.inopek.duvana.sink.activities;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -57,7 +56,7 @@ public class SinkBasicEditionActivity extends AbstractBasicCreationActivity {
             @Override
             public void onClick(View v) {
                 Context context = getBaseContext();
-                if(!ActivityUtils.isNetworkAvailable(context)) {
+                if (!ActivityUtils.isNetworkAvailable(context)) {
                     showToastMessage(getString(R.string.no_network_available_message), context);
                 } else if (createSinkBean(sinkBean)) {
                     runTask(sinkBean, false, true);

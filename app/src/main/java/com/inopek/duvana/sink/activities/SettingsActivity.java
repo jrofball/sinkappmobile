@@ -74,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.client_name_preference), (String) clientSpinner.getSelectedItem());
         editor.putString(getString(R.string.profile_name_preference), (String) profileSpinner.getSelectedItem());
-        editor.commit();
+        editor.apply();
         Intent openMain = new Intent(this, MainActivity.class);
         startActivity(openMain);
     }

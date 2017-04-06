@@ -1,8 +1,6 @@
 package com.inopek.duvana.sink.tasks;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,20 +11,16 @@ import com.inopek.duvana.sink.constants.SinkConstants;
 import com.inopek.duvana.sink.utils.ImageUtils;
 import com.inopek.duvana.sink.utils.PropertiesUtils;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.util.support.Base64;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractHttpRequestTask<T extends Object> extends AsyncTask<Void, Void, T> {
+public abstract class AbstractHttpRequestTask<T> extends AsyncTask<Void, Void, T> {
 
     protected final Context context;
     private UserBean userBean;
@@ -71,7 +65,7 @@ public abstract class AbstractHttpRequestTask<T extends Object> extends AsyncTas
     private String getEncodeImage(String path) {
         File file = new File(path);
         if (file.exists()) {
-            return ImageUtils.convertBitmaptoSmallerSizetoString(path);
+            return ImageUtils.convertBitmapToSmallerSizetoString(path);
         }
         FirebaseCrash.log("Error while encoding image. File does not exist " + path);
         return null;

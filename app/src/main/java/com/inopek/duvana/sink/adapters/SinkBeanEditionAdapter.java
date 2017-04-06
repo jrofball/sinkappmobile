@@ -125,7 +125,7 @@ public class SinkBeanEditionAdapter extends AbstractSinkBeanAdapter {
                 // the path is already set, check file exists
                 return  getFilePath(base64);
             }
-            path += fileName + ".png";
+            path += fileName + ".jpeg";
             // decode and create file
             byte[] bytes = Base64.decode(base64, DEFAULT);
             File imageFile = new File(path);

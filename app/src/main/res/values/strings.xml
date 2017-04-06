@@ -4,7 +4,7 @@
     <string name="client_name.preference">CLIENT</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="profile_name.preference">PROFILE</string>
     <string name="imei.name.preference">IMEI</string>
     <string name="imei.error">Su usuario no ha sido registrado. Contacte el administrador</string>

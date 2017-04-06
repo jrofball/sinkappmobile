@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.inopek.duvana.sink.R;
 import com.inopek.duvana.sink.activities.utils.ActivityUtils;
 import com.inopek.duvana.sink.beans.ClientReferenceBean;
@@ -157,21 +160,23 @@ public abstract class AbstractCreationActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         new Thread(new Runnable() {
             public void run() {
-                if (data != null && data.getExtras() != null && data.getStringExtra(SinkConstants.INTENT_EXTRA_FILE_NAME) != null) {
-                    final Bitmap bitmap = ImageUtils.processBitMap(data);
+                if (data != null && data.getExtras() != null &&  data.getStringExtra(SinkConstants.INTENT_EXTRA_FULL_SIZE_FILE_NAME) != null) {
+                    final Bitmap bitmap = ImageUtils.getThumbnailBitmap(data.getStringExtra(SinkConstants.INTENT_EXTRA_FULL_SIZE_FILE_NAME));
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // This code will always run on the UI thread, therefore is safe to modify UI elements.
                             if (bitmap != null) {
                                 // set tag with image's path. It's used to upload the original image
-                                getImageView().setTag(data.getStringExtra(SinkConstants.INTENT_EXTRA_FILE_NAME));
+                                getImageView().setTag(data.getStringExtra(SinkConstants.INTENT_EXTRA_FULL_SIZE_FILE_NAME));
                                 getImageView().setImageBitmap(bitmap);
                                 getImageView().setDrawingCacheEnabled(true);
                                 imageBitmap = bitmap;
                             }
                         }
                     });
+                } else {
+                    FirebaseCrash.log("Error while taking or choosing photo");
                 }
             }
 
