@@ -9,6 +9,9 @@
     <string name="imei.name.preference">IMEI</string>
     <string name="imei.error">Su usuario no ha sido registrado. Contacte el administrador</string>
     <string name="settings.title"><u>Configure las siguientes preferencias antes de comenzar</u></string>
+    <string name="info.version.title"><u>Acerca de la aplicacion</u></string>
+    <string name="version.name">Version :</string>
+    <string name="version.code">Codigo :</string>
     <string name="profile.title"><u>Perfil del usuario :</u></string>
     <string name="client.title"><u>Cliente :</u></string>
     <string name="choice.image.default.message">Elija la fuente de su imagen</string>

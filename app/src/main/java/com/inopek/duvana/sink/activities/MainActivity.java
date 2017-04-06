@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Injector.getInstance().getAppComponent().inject(this);
         checkCamera();
         askForPermission();
-        endActivity();
+        createEndActivity();
+        createHelpActivity();
     }
 
     private void askForPermission() {
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(openSinkSendIntent);
     }
 
-    private void endActivity() {
+    private void createEndActivity() {
         Button closeButton = (Button) findViewById(R.id.closeButton);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,9 +203,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void createHelpActivity() {
+        Button helpButton = (Button) findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // create intent
+                helpIntent();
+            }
+        });
+    }
+
     private void settingIntent() {
         Intent settingIntent = getSettingActivityIntent();
         startActivity(settingIntent);
+    }
+
+    private void helpIntent() {
+        Intent helpIntent = new Intent(this, HelpActivity.class);
+        startActivity(helpIntent);
     }
 
     private void searchIntent() {
