@@ -1,10 +1,11 @@
 package com.inopek.duvana.sink.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,6 +13,11 @@ import android.widget.Button;
 
 import com.inopek.duvana.sink.R;
 import com.inopek.duvana.sink.utils.PathUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.inopek.duvana.sink.constants.SinkConstants.INTENT_EXTRA_FULL_SIZE_FILE_NAME;
 import static com.inopek.duvana.sink.constants.SinkConstants.PHOTO_REQUEST_CODE;
@@ -41,8 +47,16 @@ public class PhotoChoiceActivity extends AppCompatActivity implements OnClickLis
         switch (v.getId()) {
             case R.id.cameraButton:
                 // Launch camera
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File photoFile = createImageFile();
+                // Continue only if the File was successfully created
+                if (photoFile != null) {
+                    Uri photoURI = FileProvider.getUriForFile(this,
+                            "com.inopek.duvana.sink.fileprovider",
+                            photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+                }
                 break;
 
             case R.id.galeryButton:
@@ -60,24 +74,10 @@ public class PhotoChoiceActivity extends AppCompatActivity implements OnClickLis
         if (data != null) {
             Intent intent = new Intent();
             String fullSizePath = null;
-            if (requestCode == CAMERA_REQUEST_CODE && data.getExtras() != null) {
-
-                // get full size image path
-                Cursor cursor = getContentResolver().query(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        new String[]{
-                                MediaStore.Images.Media.DATA,
-                                MediaStore.Images.Media.DATE_ADDED,
-                                MediaStore.Images.ImageColumns.ORIENTATION
-                        },
-                        MediaStore.Images.Media.DATE_ADDED,
-                        null,
-                        "date_added DESC");
-
-                if (cursor != null && cursor.moveToFirst()) {
-                    Uri uri = Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
-                    fullSizePath = uri.toString();
-                    cursor.close();
+            if (requestCode == CAMERA_REQUEST_CODE) {
+                File imgFile = new File(mCurrentPhotoPath);
+                if (imgFile.exists()) {
+                    fullSizePath = imgFile.getAbsolutePath();
                 }
             } else if (requestCode == SELECT_REQUEST_CODE) {
                 fullSizePath = PathUtils.generatePath(data.getData(), getApplicationContext());
@@ -86,5 +86,29 @@ public class PhotoChoiceActivity extends AppCompatActivity implements OnClickLis
             setResult(PHOTO_REQUEST_CODE, intent);
             finish();
         }
+    }
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = null;
+        try {
+            image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 }
