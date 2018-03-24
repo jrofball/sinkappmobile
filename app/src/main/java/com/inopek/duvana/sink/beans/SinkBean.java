@@ -15,8 +15,6 @@ public class SinkBean {
     private Long pipeLineLength;
     private Long plumbOptionId;
     private String reference;
-    private String imageBefore;
-    private String imageAfter;
     @JsonIgnore
     private String imageBeforePath;
     @JsonIgnore
@@ -30,6 +28,9 @@ public class SinkBean {
     private UserBean userUpdate;
     private Date sinkCreationDate;
     private Date sinkUpdateDate;
+
+    private String imagePathBeforeClean;
+    private String imagePathAfterClean;
 
     public Long getId() {
         return id;
@@ -45,22 +46,6 @@ public class SinkBean {
 
     public void setReference(String reference) {
         this.reference = reference;
-    }
-
-    public String getImageBefore() {
-        return imageBefore;
-    }
-
-    public void setImageBefore(String imageBefore) {
-        this.imageBefore = imageBefore;
-    }
-
-    public String getImageAfter() {
-        return imageAfter;
-    }
-
-    public void setImageAfter(String imageAfter) {
-        this.imageAfter = imageAfter;
     }
 
     public Long getSinkStatusId() {
@@ -200,6 +185,22 @@ public class SinkBean {
 
         return reference.equals(sinkBean.reference);
 
+    }
+
+    public String getImagePathBeforeClean() {
+        return imagePathBeforeClean;
+    }
+
+    public void setImagePathBeforeClean(String imagePathBeforeClean) {
+        this.imagePathBeforeClean = imagePathBeforeClean;
+    }
+
+    public String getImagePathAfterClean() {
+        return imagePathAfterClean;
+    }
+
+    public void setImagePathAfterClean(String imagePathAfterClean) {
+        this.imagePathAfterClean = imagePathAfterClean;
     }
 
     @Override

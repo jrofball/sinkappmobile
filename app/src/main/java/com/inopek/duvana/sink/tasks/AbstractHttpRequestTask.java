@@ -48,15 +48,16 @@ public abstract class AbstractHttpRequestTask<T> extends AsyncTask<Void, Void, T
             return post(restTemplate, url, mapVariables);
         } catch (Exception e) {
             Log.e("HttpRequestTask ", e.getMessage(), e);
+            FirebaseCrash.report(e);
             return null;
         }
     }
 
     protected void encodePhotoFile(SinkBean sinkBean) {
         if(StringUtils.isNotEmpty(sinkBean.getImageBeforePath())) {
-            sinkBean.setImageBefore(getEncodeImage(sinkBean.getImageBeforePath()));
+            sinkBean.setImagePathBeforeClean(getEncodeImage(sinkBean.getImageBeforePath()));
         } else if(StringUtils.isNotEmpty(sinkBean.getImageAfterPath())) {
-            sinkBean.setImageAfter(getEncodeImage(sinkBean.getImageAfterPath()));
+            sinkBean.setImagePathAfterClean(getEncodeImage(sinkBean.getImageAfterPath()));
         } else  {
             FirebaseCrash.log("Error before encoding image. Bean has not photo does not exist " + sinkBean.getReference());
         }

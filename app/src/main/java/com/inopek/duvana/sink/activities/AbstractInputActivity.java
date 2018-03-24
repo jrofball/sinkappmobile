@@ -124,7 +124,7 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
             Object tag = getImageView().getTag();
             if(tag != null) { // photo has been changed if modeEdition, otherwise use taken or chosen photo
                 sinkBean.setImageAfterPath(String.valueOf(tag));
-                sinkBean.setImageAfter(customService.encodeBase64(imageViewAfterDrawingCache));
+                sinkBean.setImagePathAfterClean(customService.encodeBase64(imageViewAfterDrawingCache));
             } else if (tag == null && isModeEdition() && StringUtils.isEmpty(sinkBean.getImageAfterPath())){
                 Log.e("Creation", "There is no photo");
             }
@@ -133,10 +133,10 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
         setDefaultClient(sinkBean, this, getString(R.string.client_name_preference));
 
         // if image before exists : save encoded base 64. This happens in mode edition
-        if(StringUtils.isNotEmpty(sinkBean.getImageBefore())) {
-            Bitmap bipMapFromFile = ImageUtils.getBipMapFromFile(sinkBean.getImageBefore());
+        if(StringUtils.isNotEmpty(sinkBean.getImagePathBeforeClean())) {
+            Bitmap bipMapFromFile = ImageUtils.getBipMapFromFile(sinkBean.getImagePathBeforeClean());
             if(bipMapFromFile != null) {
-                sinkBean.setImageBefore(customService.encodeBase64(bipMapFromFile));
+                sinkBean.setImagePathBeforeClean(customService.encodeBase64(bipMapFromFile));
             }
         }
 
@@ -152,7 +152,7 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
 
     private boolean isPhotoTaken(SinkBean sinkBean) {
         Button button = (Button) findViewById(R.id.cameraFinalButton);
-        return photoExists(sinkBean.getImageAfter(), button);
+        return photoExists(sinkBean.getImagePathAfterClean(), button);
     }
 
     private boolean isValidSinkStatusEnum(SinkBean sinkBean) {

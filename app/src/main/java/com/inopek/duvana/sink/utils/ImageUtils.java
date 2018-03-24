@@ -10,6 +10,7 @@ import org.springframework.util.support.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 
 public final class ImageUtils {
 

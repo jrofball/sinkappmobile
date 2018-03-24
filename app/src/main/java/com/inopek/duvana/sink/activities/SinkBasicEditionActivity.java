@@ -80,15 +80,15 @@ public class SinkBasicEditionActivity extends AbstractBasicCreationActivity {
     }
 
     private void populatePhoto(final SinkBean sinkBean) {
-        if (StringUtils.isNotEmpty(sinkBean.getImageBefore())) {
+        if (StringUtils.isNotEmpty(sinkBean.getImagePathBeforeClean())) {
             new Thread(new Runnable() {
                 public void run() {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // This code will always run on the UI thread, therefore is safe to modify UI elements.
-                            sinkBean.setImageBeforePath(sinkBean.getImageBefore());
-                            ImageUtils.createBipMapFromFile(sinkBean.getImageBefore(), getImageView());
+                            sinkBean.setImageBeforePath(sinkBean.getImagePathBeforeClean());
+                            ImageUtils.createBipMapFromFile(sinkBean.getImagePathBeforeClean(), getImageView());
                         }
                     });
                 }

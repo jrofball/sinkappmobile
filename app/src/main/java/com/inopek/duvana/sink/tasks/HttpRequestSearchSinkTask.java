@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.inopek.duvana.sink.R;
 import com.inopek.duvana.sink.beans.SinkBean;
 import com.inopek.duvana.sink.constants.SinkConstants;
@@ -53,6 +54,7 @@ public class HttpRequestSearchSinkTask extends AsyncTask<Object, Object, SinkBea
             return restTemplate.getForObject(url, SinkBean[].class, mapVariables);
         } catch (Exception e) {
             Log.e("HttpRequestTask ", e.getMessage(), e);
+            FirebaseCrash.report(e);
             return null;
         }
     }

@@ -45,7 +45,7 @@ public abstract class AbstractBasicCreationActivity extends AbstractCreationActi
             Object tag = getImageView().getTag();
             if(tag != null) {
                 sinkBean.setImageBeforePath(String.valueOf(tag));
-                sinkBean.setImageBefore(customService.encodeBase64(imageViewBeforeDrawingCache));
+                sinkBean.setImagePathBeforeClean(customService.encodeBase64(imageViewBeforeDrawingCache));
             } else if (tag == null && isModeEdition() && StringUtils.isEmpty(sinkBean.getImageBeforePath())){
                 Log.e("BasicCreation", "There is no photo");
             }
@@ -57,14 +57,14 @@ public abstract class AbstractBasicCreationActivity extends AbstractCreationActi
         setClient(sinkBean);
 
         // if image after exists : save encoded base 64. This happens in mode edition
-        if(StringUtils.isNotEmpty(sinkBean.getImageAfter())) {
-            Bitmap bipMapFromFile = ImageUtils.getBipMapFromFile(sinkBean.getImageAfter());
+        if(StringUtils.isNotEmpty(sinkBean.getImagePathAfterClean())) {
+            Bitmap bipMapFromFile = ImageUtils.getBipMapFromFile(sinkBean.getImagePathAfterClean());
             if(bipMapFromFile != null) {
-                sinkBean.setImageAfter(customService.encodeBase64(bipMapFromFile));
+                sinkBean.setImagePathAfterClean(customService.encodeBase64(bipMapFromFile));
             }
         }
 
-        boolean photoExists = photoExists(sinkBean.getImageBefore(), (Button) findViewById(R.id.cameraPreviousButton));
+        boolean photoExists = photoExists(sinkBean.getImagePathBeforeClean(), (Button) findViewById(R.id.cameraPreviousButton));
 
         return referenceExist && photoExists;
     }

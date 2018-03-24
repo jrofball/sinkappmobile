@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.inopek.duvana.sink.beans.SinkBean;
 import com.inopek.duvana.sink.constants.SinkConstants;
 import com.inopek.duvana.sink.utils.PropertiesUtils;
@@ -35,6 +36,7 @@ public class HttpRequestDeleteSinkTask extends AsyncTask<Void, Void, Boolean> {
             return restTemplate.postForObject(url, sinkBean, Boolean.class);
         } catch (Exception e) {
             Log.e("HttpRequestTask ", e.getMessage(), e);
+            FirebaseCrash.report(e);
             return null;
         }
     }

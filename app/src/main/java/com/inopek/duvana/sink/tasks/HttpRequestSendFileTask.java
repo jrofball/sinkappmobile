@@ -7,9 +7,7 @@ import android.content.SharedPreferences;
 import com.inopek.duvana.sink.R;
 import com.inopek.duvana.sink.beans.SinkBean;
 import com.inopek.duvana.sink.beans.UserBean;
-import com.inopek.duvana.sink.enums.ProfileEnum;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;

@@ -32,7 +32,7 @@ public class ReferenceClientDao extends AbstractDao<ReferenceClientHandler> {
     }
 
     public void add(ClientReferenceBean bean) {
-        DateTime dateTime = DateTime.now().withTimeAtStartOfDay();
+        DateTime dateTime = new DateTime().withTimeAtStartOfDay();
         ContentValues values = new ContentValues();
         values.put(ReferenceClientHandler.COLUMN_REFERENCE, bean.getReference());
         values.put(ReferenceClientHandler.COLUMN_CLIENT_NAME, bean.getClientName());
@@ -66,28 +66,26 @@ public class ReferenceClientDao extends AbstractDao<ReferenceClientHandler> {
     }
 
     public List<ClientReferenceBean> getByFileName(String fileName) {
-        List<ClientReferenceBean> resultats = new ArrayList<>();
         String query = ReferenceClientHandler.COLUMN_FILE_NAME + " = \"" + fileName + "\"";
-        return executeQueryAndCreateResultList(resultats, query);
+        return executeQueryAndCreateResultList(query);
     }
 
     public List<ClientReferenceBean> getByClientNameAndProfile(String clientName, String profileName) {
-        List<ClientReferenceBean> resultats = new ArrayList<>();
         String query = ReferenceClientHandler.COLUMN_CLIENT_NAME + " = \"" + clientName + "\"" + " AND " + ReferenceClientHandler.COLUMN_PROFILE_NAME + " = \"" + profileName + "\"";
-        return executeQueryAndCreateResultList(resultats, query);
+        return executeQueryAndCreateResultList(query);
     }
 
     public List<ClientReferenceBean> getByClientNameAndProfileByDateAndReferene(String clientName, String profileName, Date startDate, Date endDate, String reference) {
-        List<ClientReferenceBean> resultats = new ArrayList<>();
         String query = ReferenceClientHandler.COLUMN_CLIENT_NAME + " = \"" + clientName + "\"" + " AND " + ReferenceClientHandler.COLUMN_PROFILE_NAME + " = \"" + profileName + "\"";
         query += " AND " + ReferenceClientHandler.COLUMN_DATE_NAME + " BETWEEN " + startDate.getTime() + " AND " + endDate.getTime() + "";
         if (StringUtils.isNotEmpty(reference)) {
-            query += " AND " + ReferenceClientHandler.COLUMN_REFERENCE + " = " + reference + "";
+            query += " AND " + ReferenceClientHandler.COLUMN_REFERENCE + " = \"" + reference + "\"";
         }
-        return executeQueryAndCreateResultList(resultats, query);
+        return executeQueryAndCreateResultList( query);
     }
 
-    private List<ClientReferenceBean> executeQueryAndCreateResultList(List<ClientReferenceBean> resultats, String query) {
+    private List<ClientReferenceBean> executeQueryAndCreateResultList( String query) {
+        List<ClientReferenceBean> resultats = new ArrayList<>();
         Cursor cursor = getDb().query(ReferenceClientHandler.TABLE_NAME, ALL_COLUMNS, query, null, null, null, null);
         while(cursor.moveToNext()) {
             resultats.add(createClientReferenceBean(cursor));

@@ -113,7 +113,7 @@ public class CustomServiceImpl implements CustomService {
         } catch (IOException ex) {
             Log.e("CustomServiceImpl", "Error while reading file " + ex.getMessage());
         }
-        return sinkBeans;
+        return new ArrayList<>(CollectionUtils.size(sinkBeans) > 10 ? sinkBeans.subList(0, 10) : sinkBeans);
     }
 
     @Override

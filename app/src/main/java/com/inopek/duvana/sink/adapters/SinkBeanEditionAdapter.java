@@ -92,13 +92,13 @@ public class SinkBeanEditionAdapter extends AbstractSinkBeanAdapter {
         String reference = sinkBean.getReference();
         Intent intent = null;
         if(reference != null) {
-            if (StringUtils.isNotEmpty(sinkBean.getImageBefore())) {
-                imageTmpPath = saveImage(sinkBean.getImageBefore(), reference);
-                sinkBean.setImageBefore(imageTmpPath);
+            if (StringUtils.isNotEmpty(sinkBean.getImagePathBeforeClean())) {
+                imageTmpPath = saveImage(sinkBean.getImagePathBeforeClean(), reference);
+                sinkBean.setImagePathBeforeClean(imageTmpPath);
             }
-            if (StringUtils.isNotEmpty(sinkBean.getImageAfter())) {
-                imageTmpPath = saveImage(sinkBean.getImageAfter(), reference);
-                sinkBean.setImageAfter(imageTmpPath);
+            if (StringUtils.isNotEmpty(sinkBean.getImagePathAfterClean())) {
+                imageTmpPath = saveImage(sinkBean.getImagePathAfterClean(), reference);
+                sinkBean.setImagePathAfterClean(imageTmpPath);
             }
         }
         if (ProfileEnum.BEGIN.getLabel().equals(profilePreference)) {
