@@ -116,8 +116,9 @@ public abstract class AbstractInputActivity extends AbstractCreationActivity imp
     protected boolean createSinkBean(SinkBean sinkBean) {
 
         sinkBean.setAddress(getAddressBean());
-        updateCustomValues(sinkBean);
-
+        if(!isModeEdition()) {
+            updateCustomValues(sinkBean);
+        }
         Bitmap imageViewAfterDrawingCache = getImageView().getDrawingCache();
 
         if (imageViewAfterDrawingCache != null) {

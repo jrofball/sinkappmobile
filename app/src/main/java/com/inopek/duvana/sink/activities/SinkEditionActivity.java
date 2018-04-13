@@ -149,7 +149,7 @@ public class SinkEditionActivity extends AbstractInputActivity {
                         @Override
                         public void run() {
                             // This code will always run on the UI thread, therefore is safe to modify UI elements.
-                            sinkBean.setImageAfterPath(sinkBean.getImagePathBeforeClean());
+                            sinkBean.setImageAfterPath(sinkBean.getImagePathAfterClean());
                             ImageUtils.createBipMapFromFile(sinkBean.getImagePathAfterClean(), getImageView());
                         }
                     });

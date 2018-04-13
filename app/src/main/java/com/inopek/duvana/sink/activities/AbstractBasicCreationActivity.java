@@ -52,7 +52,9 @@ public abstract class AbstractBasicCreationActivity extends AbstractCreationActi
         }
 
         sinkBean.setReference(referenceText.getText().toString());
-        sinkBean.setSinkCreationDate(new Date());
+        if(!isModeEdition()) {
+            sinkBean.setSinkCreationDate(new Date());
+        }
 
         setClient(sinkBean);
 
